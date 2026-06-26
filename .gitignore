@@ -1,0 +1,23 @@
+# Secrets & sessions
+.env
+*.session
+*.session-journal
+
+# Data
+data/*.db
+data/*.json
+!data/.gitkeep
+
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+.venv/
+venv/
+dist/
+build/
+
+# IDE
+.idea/
+.vscode/
+*.swp
