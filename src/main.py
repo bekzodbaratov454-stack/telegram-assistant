@@ -77,6 +77,19 @@ def cmd_disable(control: ControlManager) -> None:
 
 
 async def cmd_run(settings, control, store, ai) -> None:
+    from aiohttp import web
+
+    async def health(request):
+        return web.Response(text="OK")
+
+    app_web = web.Application()
+    app_web.router.add_get("/", health)
+    runner = web.AppRunner(app_web)
+    await runner.setup()
+    port = int(os.environ.get("PORT", 8080))
+    site = web.TCPSite(runner, "0.0.0.0", port)
+    await site.start()
+
     app = TelegramAutoReply(settings, control, store, ai)
     await app.start()
     print("Tizim ishga tushdi. To'xtatish: Ctrl+C")
